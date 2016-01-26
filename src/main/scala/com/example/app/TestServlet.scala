@@ -1,20 +1,20 @@
 package com.example.app
 
+import java.net.URLEncoder
 import org.scalatra._
 import scalate.ScalateSupport
-import dispatch._
+import dispatch._, Defaults._
 
 class TestServlet extends CameoserviceStack {
 
-  get("/") {
-    <html>
-      <body>
-        <h1>Hello, world!</h1>
-        Say <a href="hello-scalate">hello to Scalate</a>.
-      </body>
-    </html>
+  post("/translate/:dialect/?") {
 
+    val dialect = {params("dialect")}
 
+    dialect match{
+      case "pirate" => PirateTranslator.translate(request.body)
+      case _ => "FAILED UNKNOWN DIALECT " + dialect
+    }
   }
 
 }
