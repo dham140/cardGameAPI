@@ -29,7 +29,8 @@ object CameoserviceBuild extends Build {
         "org.scalatra" %% "scalatra-specs2" % ScalatraVersion % "test",
         "ch.qos.logback" % "logback-classic" % "1.1.3" % "runtime",
         "org.eclipse.jetty" % "jetty-webapp" % "9.2.14.v20151106" % "container",
-        "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided"
+        "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided",
+        "net.databinder.dispatch" %% "dispatch-core" % "0.11.2"
       ),
       scalateTemplateConfig in Compile <<= (sourceDirectory in Compile){ base =>
         Seq(

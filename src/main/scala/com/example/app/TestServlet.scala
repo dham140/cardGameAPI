@@ -2,6 +2,7 @@ package com.example.app
 
 import org.scalatra._
 import scalate.ScalateSupport
+import dispatch._
 
 class TestServlet extends CameoserviceStack {
 
@@ -12,6 +13,8 @@ class TestServlet extends CameoserviceStack {
         Say <a href="hello-scalate">hello to Scalate</a>.
       </body>
     </html>
+
+
   }
 
 }
