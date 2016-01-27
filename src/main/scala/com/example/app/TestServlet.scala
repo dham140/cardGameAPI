@@ -13,6 +13,7 @@ class TestServlet extends CameoserviceStack {
 
     dialect match{
       case "pirate" => PirateTranslator.translate(request.body)
+      case "morsecode" => MorseCodeTranslator.translate(request.body)
       case _ => "FAILED UNKNOWN DIALECT " + dialect
     }
   }
