@@ -1,14 +1,14 @@
 package com.example.app
 
 /**
-  * Created by christopher.odell on 1/26/16.
-  */
-object MorseCodeTranslator extends Translator{
+ * Created by christopher.odell on 1/26/16.
+ */
+object MorseCodeTranslator extends Translator {
   override def translate(input: String): String = {
 
-    val sounds = Seq("beeeep", "beep")
+    val sounds = Seq("beep", "beeeep")
 
-    val beeps = Map('A' -> Seq(1,0),
+    val beeps = Map('A' -> Seq(1, 0),
       'B' -> Seq(0, 1, 1, 1),
       'C' -> Seq(0, 1, 0, 1),
       'D' -> Seq(0, 1, 1),
@@ -49,33 +49,20 @@ object MorseCodeTranslator extends Translator{
       ':' -> Seq(0, 0, 0, 1, 1, 1),
       '?' -> Seq(1, 1, 0, 0, 1, 1),
       '\\' -> Seq(1, 0, 0, 0, 0, 1),
-    '-' -> Seq(0, 1, 1, 1, 1, 0),
-    '/' -> Seq(0, 1, 1, 0, 1),
-    '(' -> Seq(0, 1, 0, 0, 1, 0),
-    ')' -> Seq(0, 1, 0, 0, 1, 0),
-    '"' -> Seq(1, 0, 1, 1, 0, 1),
-    '@' -> Seq(1, 0, 0, 1, 0, 1),
-    '=' -> Seq(0, 1, 1, 1, 0),
-    ' ' -> Seq())
+      '-' -> Seq(0, 1, 1, 1, 1, 0),
+      '/' -> Seq(0, 1, 1, 0, 1),
+      '(' -> Seq(0, 1, 0, 0, 1, 0),
+      ')' -> Seq(0, 1, 0, 0, 1, 0),
+      '"' -> Seq(1, 0, 1, 1, 0, 1),
+      '@' -> Seq(1, 0, 0, 1, 0, 1),
+      '=' -> Seq(0, 1, 1, 1, 0),
+      ' ' -> Seq())
 
-    var temp:Seq[Seq[Int]] = null
-    try{
-      temp = input.toUpperCase.toCharArray.map(x =>
-        beeps.contains(x) match {
-          case true => beeps(x):Seq[Int]
-          case false => throw new NoSuchElementException("Unsupported character: '" + x + "'");
-        })
-    }
-    catch{
-      case e: Exception => return input.toUpperCase + "\n\n" + e.toString
+    val codedInput = input.toUpperCase.toCharArray.map(x =>
+        beeps.getOrElse(x, return "Morse conversion failed, unsupported character: '" + x + "'"))
 
-    }
+    val result = codedInput.flatMap(x => x.map(y => sounds(y)) :+ " ... ")
 
-
-        val result = temp.flatMap(x => x.map(y => sounds(y)))
-
-        result.mkString(" ")
-
-
+    result.mkString(" ")
   }
 }
