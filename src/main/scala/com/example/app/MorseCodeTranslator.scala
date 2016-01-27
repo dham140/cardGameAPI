@@ -55,15 +55,17 @@ object MorseCodeTranslator extends Translator{
     ')' -> Seq(0, 1, 0, 0, 1, 0),
     '"' -> Seq(1, 0, 1, 1, 0, 1),
     '@' -> Seq(1, 0, 0, 1, 0, 1),
-    '=' -> Seq(0, 1, 1, 1, 0))
+    '=' -> Seq(0, 1, 1, 1, 0),
+    ' ' -> Seq())
 
     var temp:Seq[Seq[Int]] = null
-    try
+    try{
       temp = input.toUpperCase.toCharArray.map(x =>
-        x match {
-          case beeps.keySet.exists(x) => beeps(x):Seq[Int]
-            _ => throw Exception
-        }
+        beeps.contains(x) match {
+          case true => beeps(x):Seq[Int]
+          case false => throw new NoSuchElementException("Unsupported character: '" + x + "'");
+        })
+    }
     catch{
       case e: Exception => return input.toUpperCase + "\n\n" + e.toString
 
