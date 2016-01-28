@@ -1,9 +1,11 @@
 package com.example.app
 
 import java.net.URLEncoder
+import javax.xml.ws.BindingProvider
 
 import com.example.app.util.RegexMatch
 import dispatch._, Defaults._
+import yodawsdl.YodaService
 
 import scala.util.{Failure, Success, Try}
 
@@ -23,7 +25,18 @@ object YodaTranslator extends Translator {
 
     val regexPattern = "<textarea.*?YodaSpeak.*?>(?<TextAreaContent>.*?)</textarea>"
 
-    return RegexMatch.synchronousMatch(response, regexPattern)
+    //this map could also call the utility method
+    response.map(x => regexPattern.r.findFirstIn(x).getOrElse("Yoda Speak regex pattern not found"))
 
+    response()
+  }
+
+  def apiTranslate(input: String): String = {
+    val a = new YodaService()
+    a.getYodatalkPort match {
+      case bp: BindingProvider =>
+        bp.yodaTalk(input)
+      case _ => "Failed to access Yodatalk service properly"
+    }
   }
 }

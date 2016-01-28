@@ -10,7 +10,7 @@ import scala.util.{Failure, Success}
 object RegexMatch {
   def synchronousMatch(fullResponse: Future[String], regexPattern: String): String = {
     val patternResponse = regexPattern.r.findFirstIn(fullResponse())
-    return patternResponse.getOrElse("Yoda Speak regex pattern not found")
+    patternResponse.getOrElse("Yoda Speak regex pattern not found")
   }
 
 //  def asynchronousMatch(fullResponse: Future[String], regexPattern: String): String = {
