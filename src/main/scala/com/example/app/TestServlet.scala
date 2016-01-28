@@ -2,14 +2,13 @@ package com.example.app
 
 import java.net.URLEncoder
 import javax.xml.ws.BindingProvider
-import _root_.akka.actor.{ActorSystem, Actor}
 import org.scalatra._
 import scalate.ScalateSupport
 import dispatch._, Defaults._
 import yodawsdl.YodaService
 import scala.concurrent.ExecutionContext
 
-class TestServlet(system: ActorSystem) extends CameoserviceStack with FutureSupport {
+class TestServlet extends CameoserviceStack with FutureSupport {
 
   val dialects = Map(
     "pirate" -> {PirateTranslator.translate(_)},
@@ -38,7 +37,7 @@ class TestServlet(system: ActorSystem) extends CameoserviceStack with FutureSupp
       override val is =
         Future {
           // Add async logic here
-          <html><body>Hello Akka</body></html>
+          <html><body>Hello</body></html>
         }
     }
 
