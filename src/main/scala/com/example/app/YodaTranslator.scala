@@ -26,9 +26,9 @@ object YodaTranslator extends Translator {
     val regexPattern = "<textarea.*?YodaSpeak.*?>(?<TextAreaContent>.*?)</textarea>"
 
     //this map could also call the utility method
-    response.map(x => regexPattern.r.findFirstIn(x).getOrElse("Yoda Speak regex pattern not found"))
+    val outputText = response.map(x => regexPattern.r.findFirstIn(x).getOrElse("Yoda Speak regex pattern not found"))
 
-    response()
+    outputText()
   }
 
   def apiTranslate(input: String): String = {
