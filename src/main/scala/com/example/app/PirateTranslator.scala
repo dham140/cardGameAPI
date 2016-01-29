@@ -10,7 +10,7 @@ import dispatch._, Defaults._
 object PirateTranslator extends Translator{
   override def translate(input: String): String = {
 
-    val pirateRequest = dispatch.url("http://postlikeapirate.com/AJAXtranslate.php?typing=" + URLEncoder.encode(input, "UTF-8"))
+    val pirateRequest = dispatch.url(s"http://postlikeapirate.com/AJAXtranslate.php?typing=${URLEncoder.encode(input, "UTF-8")}")
 
     val response = dispatch.Http(pirateRequest OK as.String)
 

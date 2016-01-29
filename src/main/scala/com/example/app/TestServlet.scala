@@ -28,6 +28,7 @@ class TestServlet extends CameoserviceStack with FutureSupport {
       case "morsecode" => MorseCodeTranslator.translate(request.body)
       case "yoda" => YodaTranslator.translate(request.body)
       case "apiYoda" => YodaTranslator.apiTranslate(request.body)
+      case "roundrobin" => new RoundRobinTranslator(5).translate(request.body)
       case _ => "FAILED UNKNOWN DIALECT " + dialect
     }
 
