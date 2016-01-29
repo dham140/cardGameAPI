@@ -10,11 +10,12 @@ import scala.concurrent.ExecutionContext
 
 class TestServlet extends CameoserviceStack with FutureSupport {
 
-  val dialects = Map(
-    "pirate" -> {PirateTranslator.translate(_)},
-    "morsecode" -> {MorseCodeTranslator.translate(_)},
-    "yoda" -> {YodaTranslator.translate(_)},
-    "apiYoda" -> {YodaTranslator.apiTranslate(_)}
+  val dialects: Map[String, String => String] = Map(
+    "pirate" -> PirateTranslator.translate,
+    "morsecode" -> MorseCodeTranslator.translate,
+    "yoda" -> YodaTranslator.translate,
+    "apiYoda" -> YodaTranslator.apiTranslate,
+    "roundrobin" -> new RoundRobinTranslator(5).translate
   )
 
   post("/translate/:dialect/?") {
