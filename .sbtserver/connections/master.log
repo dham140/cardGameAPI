@@ -1,0 +1,13 @@
+New log file opened at Mon Feb 08 12:13:29 PST 2016 by 41576@18436-mbpr.local
+Taking next connection to: 50118
+New client attempting to connect on port: 50119-50118
+  Address = /192.168.32.136:50118
+This client on port 50119 has uuid 71efd2ac-de74-4015-aa3f-8e63d4de304f configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-71efd2ac-de74-4015-aa3f-8e63d4de304f
+Taking next connection to: 50118
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 50118
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 50118
