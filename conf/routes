@@ -7,3 +7,20 @@ GET     /                           controllers.Application.index
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+
+#get game/table state for player with card counts and such
+GET /game/table/:playerId               controllers.GameController.getTable(playerId: Int)
+
+#get available actions
+GET /game/availableMoves/:playerId      controllers.GameController.getAvailableMoves(playerId: Int)
+
+#post perform action for player with card list
+POST /game/executeMove                  controllers.GameController.executeMove
+
+#post start game with 2 players
+POST /game/start                        controllers.GameController.startGame
+
+#post end game
+POST /game/end                          controllers.GameController.endGame
+
