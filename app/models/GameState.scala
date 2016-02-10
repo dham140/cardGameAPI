@@ -10,4 +10,6 @@ class GameState {
     (1 to 13).map(Card(_, "♣")) ++
     (1 to 13).map(Card(_, "♥")) ++
     (1 to 13).map(Card(_, "♦"))).sliding(26,26).toSeq
+
+  var comparePile = Seq[Card]()
 }
