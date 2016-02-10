@@ -5,4 +5,5 @@ package models
  */
 case class Card (rank: Int, suit: String) extends Ordered[Card]{
   override def compare(that: Card): Int = this.rank - that.rank
+  override def toString: String = s"$rank$suit"
 }
