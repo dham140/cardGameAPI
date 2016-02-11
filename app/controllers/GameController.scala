@@ -32,23 +32,23 @@ class GameController extends Controller {
     //Rebuild a game state, compare, and add the new state to the stack
     val comparingState = GameState(updatedDecks._1, updatedDecks._2)
     gameStateHistory :+= comparingState
-    gameStateHistory :+= compare(comparingState)
+    compare(comparingState)
 
     Ok(gameStateHistory.reverseMap(_.prettyString).mkString("</BR>"))
-
   }
 
-  def compare(curGameState: GameState) : GameState = {
+  def compare(curGameState: GameState) : Unit = {
     val maxCard = curGameState.comparePile.map(x => x.head).max
     val winningIndexes = curGameState.comparePile.zipWithIndex.filter(_._1.head.rank == maxCard.rank).map(_._2)
 
     if(winningIndexes.length > 1) {
-      compare(GameState(
+      gameStateHistory :+= GameState(
         curGameState.decks.map(_.drop(3)),
         curGameState.decks.zipWithIndex.map(x => x._1.take(3) ++ curGameState.comparePile(x._2))
-      ))
+      )
+      compare(gameStateHistory.last)
     } else {
-      GameState(
+      gameStateHistory :+= GameState(
         curGameState.decks.updated(winningIndexes.head, curGameState.decks(winningIndexes.head) ++ curGameState.comparePile.flatten),
         Seq(Seq(),Seq())
       )
