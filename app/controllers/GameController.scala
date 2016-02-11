@@ -34,8 +34,20 @@ class GameController extends Controller {
     gameStateHistory :+= comparingState
     compare(comparingState)
 
-    Ok(gameStateHistory.reverseMap(_.prettyString).mkString("</BR>"))
+    checkForVictory(gameStateHistory.last) match {
+      case None => Ok(gameStateHistory.reverseMap(_.prettyString).mkString("</BR>"))
+      case Some(x) => Ok(endGame(x))
+    }
   }
+
+  def checkForVictory(curGameState: GameState) : Option[Integer] = {
+    for(deck <- curGameState.decks.zipWithIndex) {
+      if(deck._1.size==0)
+         return Some((deck._2+1) % 2)
+    }
+    return None
+  }
+
 
   def compare(curGameState: GameState) : Unit = {
     val maxCard = curGameState.comparePile.map(x => x.head).max
@@ -66,8 +78,21 @@ class GameController extends Controller {
     Ok("Game started")
   }
 
-  def endGame() = Action {
-    Ok("Game over ")
+  def startShortGame() = Action {
+    gameStateHistory = Seq(GameState(
+      Random.shuffle((1 to 13).map(Card(_, "♠︎")) ++
+        (1 to 13).map(Card(_, "♣")) ++
+        (1 to 13).map(Card(_, "♥")) ++
+        (1 to 13).map(Card(_, "♦"))).sliding(2,50).toSeq,
+      Seq(Seq(),Seq())))
+
+    Ok("Game started")
+  }
+
+  def endGame(winner: Integer):String = {
+    val gameRecord = gameStateHistory.reverseMap(_.prettyString).mkString("</BR>")
+    gameStateHistory = Seq()
+    return "--GAME OVER - PLAYER " + winner + " WINS!!!--</BR>" + gameRecord
   }
 
 
