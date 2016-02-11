@@ -25,18 +25,25 @@ class GameController extends Controller {
   }
 
   def executeMove() = Action {
-    val curGameState = gameStateHistory.last
+    try {
+      val curGameState = gameStateHistory.last
 
-    //For every slot in the compare pile, if it is empty, move one card from the associated deck to it
-    val updatedDecks = (curGameState.decks, curGameState.comparePile).zipped.map((x, y) => if(y.isEmpty) (x.tail, Seq(x.head)) else (x, y)).unzip
-    //Rebuild a game state, compare, and add the new state to the stack
-    val comparingState = GameState(updatedDecks._1, updatedDecks._2)
-    gameStateHistory :+= comparingState
-    compare(comparingState)
+      //For every slot in the compare pile, if it is empty, move one card from the associated deck to it
+      val updatedDecks = (curGameState.decks, curGameState.comparePile).zipped.map((x, y) => if (y.isEmpty) (x.tail, Seq(x.head)) else (x, y)).unzip
+      //Rebuild a game state, compare, and add the new state to the stack
+      val comparingState = GameState(updatedDecks._1, updatedDecks._2)
+      gameStateHistory :+= comparingState
+      compare(comparingState)
 
-    checkForVictory(gameStateHistory.last) match {
-      case None => Ok(gameStateHistory.reverseMap(_.prettyString).mkString("</BR>"))
-      case Some(x) => Ok(endGame(x))
+      checkForVictory(gameStateHistory.last) match {
+        case None => Ok(gameStateHistory.reverseMap(_.prettyString).mkString("</BR>"))
+        case Some(x) => Ok(endGame(x))
+      }
+    } catch {
+      case nseEx: NoSuchElementException => Ok("Game State not initialized - please start a new game")
+      case uoEX: UnsupportedOperationException => Ok("ExecuteMove not a valid action based on current game</BR>" +
+                                                gameStateHistory.reverseMap(_.prettyString).mkString("</BR>"))
+      case ex: Exception => Ok("Unknown exception occurred: " + ex.getMessage)
     }
   }
 
