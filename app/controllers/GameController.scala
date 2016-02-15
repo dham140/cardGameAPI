@@ -72,7 +72,6 @@ class GameController extends Controller {
   }
 
   def startGame() = Action {
-    gameState = new GameState()
     Ok("Game started")
   }
 

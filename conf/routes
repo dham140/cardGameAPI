@@ -19,7 +19,7 @@ GET /game/availableMoves/:playerId      controllers.GameController.getAvailableM
 POST /game/executeMove                  controllers.GameController.executeMove
 
 #post start game with 2 players
-POST /game/start                        controllers.GameController.startGame
+POST /game/                        controllers.GameController.startGame
 
 #post end game
 POST /game/end                          controllers.GameController.endGame

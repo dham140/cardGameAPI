@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/cameoserviceclient.iml" filepath="$PROJECT_DIR$/.idea/modules/cameoserviceclient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cameoserviceclient-build.iml" filepath="$PROJECT_DIR$/.idea/modules/cameoserviceclient-build.iml" />
     </modules>
   </component>
 </project>
