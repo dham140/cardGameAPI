@@ -21,6 +21,9 @@ POST /game/executeMove                  controllers.GameController.executeMove
 #post start game with 2 players
 POST /game/                        controllers.GameController.startGame
 
+#post start short game
+POST /game/start/short                  controllers.GameController.startShortGame
+
 #post end game
-POST /game/end                          controllers.GameController.endGame
+#POST /game/end                          controllers.GameController.endGame
 

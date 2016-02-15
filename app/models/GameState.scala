@@ -5,11 +5,11 @@ import scala.util.Random
 /**
  * Created by evana on 2/8/16.
  */
-class GameState {
-  var decks: Seq[Seq[Card]] = Random.shuffle((1 to 13).map(Card(_, "♠︎")) ++
-    (1 to 13).map(Card(_, "♣")) ++
-    (1 to 13).map(Card(_, "♥")) ++
-    (1 to 13).map(Card(_, "♦"))).sliding(26,26).toSeq
-
-  var comparePile = Seq[Card]()
+case class GameState(decks: Seq[Seq[Card]], comparePile: Seq[Seq[Card]]) {
+  def prettyString: String = {
+    decks.zipWithIndex.map(x => s"P${x._2}: ${x._1.size} cards").mkString(", ") +
+      (if(comparePile.exists(_.isEmpty)) "" else s"; comparing ${comparePile.map(_.head).mkString(", ")}")
+  }
 }
+
+
