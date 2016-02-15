@@ -76,10 +76,10 @@ class GameController extends Controller {
 
   def startGame() = Action {
     gameStateHistory = Seq(GameState(
-      Random.shuffle((1 to 13).map(Card(_, "♠︎")) ++
-      (1 to 13).map(Card(_, "♣")) ++
-      (1 to 13).map(Card(_, "♥")) ++
-      (1 to 13).map(Card(_, "♦"))).sliding(26,26).toSeq,
+      Random.shuffle((2 to 14).map(Card(_, "♠︎")) ++
+      (2 to 14).map(Card(_, "♣")) ++
+      (2 to 14).map(Card(_, "♥")) ++
+      (2 to 14).map(Card(_, "♦"))).sliding(26,26).toSeq,
       Seq(Seq(),Seq())))
 
     Ok("Game started")
@@ -87,10 +87,10 @@ class GameController extends Controller {
 
   def startShortGame() = Action {
     gameStateHistory = Seq(GameState(
-      Random.shuffle((1 to 13).map(Card(_, "♠︎")) ++
-        (1 to 13).map(Card(_, "♣")) ++
-        (1 to 13).map(Card(_, "♥")) ++
-        (1 to 13).map(Card(_, "♦"))).sliding(2,50).toSeq,
+      Random.shuffle((2 to 14).map(Card(_, "♠︎")) ++
+        (2 to 14).map(Card(_, "♣")) ++
+        (2 to 14).map(Card(_, "♥")) ++
+        (2 to 14).map(Card(_, "♦"))).sliding(2,50).toSeq,
       Seq(Seq(),Seq())))
 
     Ok("Game started")
