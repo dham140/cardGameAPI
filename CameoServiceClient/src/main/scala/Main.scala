@@ -50,15 +50,12 @@ object GameHandler {
 
   def startGame(gameNumber: Int):Future[String] = {
 
-    val page = url(baseUrl + "start").POST
+    val page = url(baseUrl).POST
 
     val response = Http(page OK dispatch.as.String)
 
     response onComplete {
-      case Success(responseString) => {
-
-        gameStarted(responseString)
-      }
+      case Success(responseString) => gameStarted(responseString)
       case Failure(error) => println(error)
     }
 
@@ -66,9 +63,15 @@ object GameHandler {
   }
 
   def gameStarted(response:String) = {
-    println("do something now that the game is started!")
-    while(true){
+    //println("do something now that the game is started!")
+    val page = url(baseUrl+ "table/").GET
 
+    val response = Http(page OK dispatch.as.String)
+
+    response onComplete {
+      case Success(responseString) => gameStarted(responseString)
+      case Failure(error) => println(error)
     }
   }
+
 }

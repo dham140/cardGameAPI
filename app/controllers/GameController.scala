@@ -72,7 +72,7 @@ class GameController extends Controller {
   }
 
   def startGame() = Action {
-    Ok("Game started")
+    Ok(java.util.UUID.randomUUID)
   }
 
   def endGame() = Action {
